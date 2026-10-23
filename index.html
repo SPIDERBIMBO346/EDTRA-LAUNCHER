@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Edtra Launcher</title>
+
+  <link href="https://fonts.cdnfonts.com/css/minecraft-4" rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      text-align: center;
+      font-family: 'Minecraft', sans-serif;
+      background: url('fondo.png') no-repeat center center fixed;
+      background-size: cover;
+      color: white;
+      margin: 0;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.4);
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    h1 {
+      margin: 35px 0 10px;
+    }
+
+    .logo {
+      width: min(320px, 90%);
+      height: auto;
+    }
+
+    .subtitle {
+      color: #ddd;
+      font-size: 11px;
+      line-height: 1.9;
+      margin: 15px 0 30px;
+    }
+
+    /* LAUNCHER */
+
+    .launcher {
+      width: 100%;
+      max-width: 520px;
+      margin: 0 auto;
+      padding: 25px;
+      background: rgba(0, 0, 0, 0.85);
+      border: 3px solid #555;
+      border-radius: 12px;
+      box-shadow: 0 8px 0 rgba(0, 0, 0, 0.6);
+      text-align: left;
+    }
+
+    .launcher-title {
+      text-align: center;
+      font-size: 17px;
+      line-height: 1.8;
+      margin: 0 0 10px;
+      color: #ff5555;
+    }
+
+    .launcher-description {
+      text-align: center;
+      color: #ccc;
+      font-size: 10px;
+      line-height: 1.9;
+      margin-bottom: 25px;
+    }
+
+    .field {
+      margin-bottom: 20px;
+    }
+
+    .field label {
+      display: block;
+      margin-bottom: 10px;
+      font-size: 11px;
+      color: white;
+    }
+
+    .field input {
+      width: 100%;
+      padding: 14px 12px;
+      background: #171717;
+      border: 2px solid #555;
+      border-radius: 5px;
+      color: white;
+      outline: none;
+      font-family: Arial, sans-serif;
+      font-size: 16px;
+    }
+
+    .field input:focus {
+      border-color: #ff5555;
+      box-shadow: 0 0 8px rgba(255, 85, 85, 0.3);
+    }
+
+    .field input::placeholder {
+      color: #888;
+    }
+
+    .port-info {
+      margin-top: 8px;
+      font-family: Arial, sans-serif;
+      font-size: 12px;
+      color: #aaa;
+    }
+
+    .play-button {
+      display: block;
+      width: 100%;
+      padding: 17px 10px;
+      margin-top: 25px;
+      background: #b92727;
+      color: white;
+      border: 2px solid #ff5555;
+      border-radius: 6px;
+      box-shadow: 0 5px 0 #650f0f;
+      font-family: 'Minecraft', sans-serif;
+      font-size: 15px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .play-button:hover {
+      background: #e03939;
+      transform: translateY(-2px);
+    }
+
+    .play-button:active {
+      transform: translateY(3px);
+      box-shadow: 0 2px 0 #650f0f;
+    }
+
+    .message {
+      display: none;
+      margin-top: 20px;
+      padding: 13px;
+      border: 2px solid #777;
+      border-radius: 5px;
+      background: rgba(30, 30, 30, 0.9);
+      color: #ddd;
+      font-family: Arial, sans-serif;
+      font-size: 13px;
+      line-height: 1.6;
+      overflow-wrap: anywhere;
+    }
+
+    .tip {
+      max-width: 520px;
+      margin: 25px auto 0;
+      padding: 17px;
+      background: rgba(0, 0, 0, 0.72);
+      border: 2px solid #555;
+      border-radius: 8px;
+      color: #ccc;
+      font-size: 10px;
+      line-height: 2;
+    }
+
+    .tip strong {
+      color: #ff7777;
+    }
+
+    .watermark {
+      margin: 45px 0 10px;
+      font-size: 10px;
+      opacity: 0.7;
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding: 12px;
+      }
+
+      h1 {
+        margin-top: 35px;
+      }
+
+      .launcher {
+        padding: 20px 16px;
+      }
+
+      .launcher-title {
+        font-size: 14px;
+      }
+
+      .subtitle {
+        font-size: 10px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- LOGO -->
+
+  <h1>
+    <img
+      src="title.png"
+      alt="Edtra Studios"
+      class="logo"
+    >
+  </h1>
+
+  <p class="subtitle">
+    EDTRA LAUNCHER · MINECRAFT BEDROCK
+    <br>
+    LAUNCHER DE EDTRA CLUB
+  </p>
+
+  <!-- FORMULARIO DEL LAUNCHER -->
+
+  <main class="launcher">
+
+    <h2 class="launcher-title">
+      SERVER CONNECT
+    </h2>
+
+    <p class="launcher-description">
+      Introduce los datos de tu servidor
+      y pulsa JUGAR para abrir Minecraft.
+    </p>
+
+    <form id="serverForm">
+
+      <div class="field">
+        <label for="serverIP">IP O DOMINIO DEL SERVIDOR</label>
+
+        <input
+          type="text"
+          id="serverIP"
+          placeholder="play.ejemplo.net"
+          maxlength="253"
+          autocomplete="url"
+          required
+        >
+      </div>
+
+      <div class="field">
+        <label for="serverPort">PUERTO DEL SERVIDOR</label>
+
+        <input
+          type="number"
+          id="serverPort"
+          placeholder="19132"
+          min="1"
+          max="65535"
+          value="19132"
+          required
+        >
+
+        <p class="port-info">
+          Puerto predeterminado Bedrock: 19132
+        </p>
+      </div>
+
+      <button type="submit" class="play-button">
+        ▶ JUGAR
+      </button>
+
+      <div class="message" id="message" role="status"></div>
+
+    </form>
+
+  </main>
+
+  <!-- INFORMACIÓN -->
+
+  <section class="tip">
+    <strong>INFORMACIÓN</strong>
+    <br><br>
+    Necesitas tener Minecraft Bedrock instalado.
+    <br>
+    El servidor debe estar encendido y aceptar conexiones.
+    <br><br>
+    Si tu dispositivo pregunta si quieres abrir Minecraft,
+    acepta la solicitud.
+  </section>
+
+  <footer class="watermark">
+    © Edtra Studios 2026
+  </footer>
+
+  <script>
+    document.getElementById('serverForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      const ipInput = document.getElementById('serverIP');
+      const portInput = document.getElementById('serverPort');
+      const message = document.getElementById('message');
+
+      const ip = ipInput.value.trim();
+      const port = Number(portInput.value);
+
+      message.style.display = 'block';
+
+      // Validar IP o dominio y puerto
+      if (
+        !ip ||
+        ip.includes('://') ||
+        /[\s/?#@|\\]/.test(ip) ||
+        ip.includes('..') ||
+        !Number.isInteger(port) ||
+        port < 1 ||
+        port > 65535
+      ) {
+        message.textContent =
+          'Revisa la IP y el puerto del servidor.';
+        return;
+      }
+
+      // Enlace de conexión de Minecraft Bedrock
+      const minecraftURL =
+        'minecraft://connect?serverUrl=' +
+        encodeURIComponent(ip) +
+        '&serverPort=' +
+        encodeURIComponent(String(port));
+
+      message.textContent =
+        'Intentando abrir Minecraft Bedrock para conectar con ' +
+        ip + ':' + port + '...';
+
+      window.location.href = minecraftURL;
+    });
+  </script>
+
+</body>
+</html>
